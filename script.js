@@ -1,7 +1,17 @@
 $(document).ready(function(){
 		
+		var arr = new Array(3);
+		for(var i=0;i<3;i++){
+				arr[i] = new Array(3);
+				arr[i][0] = document.getElementById('a'+(i+1));
+				arr[i][1] = document.getElementById('b'+(i+1));
+				arr[i][2] = document.getElementById('c'+(i+1));
+		}
+		console.log(arr);
+
 		var turn = true;
 		var turn_count = 0;
+		
 		$('.box').click(function(){
 
 			turn_count+=1;
@@ -37,46 +47,29 @@ $(document).ready(function(){
 		function checkForWinner() {
 			var isThereAWinner=false;
 
-			var a1 = document.getElementById('a1');
-			var a2 = document.getElementById('a2');
-			var a3 = document.getElementById('a3');
 
-			var b1 = document.getElementById('b1');
-			var b2 = document.getElementById('b2');
-			var b3 = document.getElementById('b3');
-
-			var c1 = document.getElementById('c1');
-			var c2 = document.getElementById('c2');
-			var c3 = document.getElementById('c3');
-
-			if( a1.className == 'boxClicked' && a1.innerText == a2.innerText && a2.innerText == a3.innerText)
-				isThereAWinner = true;
-			else if( b1.className == 'boxClicked' && b1.innerText == b2.innerText && b2.innerText == b3.innerText)
-				isThereAWinner = true;
-			else if( c1.className == 'boxClicked' && c1.innerText == c2.innerText && c2.innerText == c3.innerText)
-				isThereAWinner = true;
-			else if( a1.className == 'boxClicked' && a1.innerText == b1.innerText && b1.innerText == c1.innerText)
-				isThereAWinner = true;
-			else if(a2.className == 'boxClicked' && a2.innerText == b2.innerText && b2.innerText == c2.innerText)
-				isThereAWinner = true;
-			else if(a3.className == 'boxClicked' && a3.innerText == b3.innerText && b3.innerText == c3.innerText)
-				isThereAWinner = true;
-			else if(a1.className == 'boxClicked' && a1.innerText == b2.innerText && b2.innerText == c3.innerText)
+			//horizontal and vertical
+			for (var i = 0; i < 3; i++)
+				if( arr[i][0].className == 'boxClicked' && arr[i][0].innerText == arr[i][1].innerText && arr[i][1].innerText == arr[i][2].innerText){
+					isThereAWinner = true;
+					break;
+				}else if( arr[0][i].className == 'boxClicked' && arr[0][i].innerText == arr[1][i].innerText && arr[1][i].innerText == arr[2][i].innerText){
+					isThereAWinner = true;
+					break;
+				}
+			//diagonal
+			if(a1.className == 'boxClicked' && a1.innerText == b2.innerText && b2.innerText == c3.innerText)
 				isThereAWinner = true;
 			else if(c1.className == 'boxClicked' && c1.innerText == b2.innerText && b2.innerText == a3.innerText)
 				isThereAWinner = true;
 
-			if(isThereAWinner){
-
+			if(isThereAWinner)
 				if(!turn)
 					alert('X wins');  			
 				else
 					alert('O wins');
-
-			} else if(turn_count == 9){
+			else if(turn_count == 9)
 					alert('DRAW');
-
-			}
 
 		}
 
